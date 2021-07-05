@@ -1,0 +1,47 @@
+/*--------------
+1.Theme default CSS
+--------------------------*/
+table {
+    text-align: center;
+    border-bottom:2px solid #1291C6;
+}
+
+table tbody td{
+    border: 1px solid #EEE;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 4px 4px 20px 4px rgb(126 143 159 / 10%);
+    color:#15A6E3;
+    min-width:120px;
+}
+table tbody td h6{
+    cursor: pointer;
+}
+table tbody td p{
+    text-align: left;
+    color: #797979;
+    font-size: x-small;
+    font-weight: 500;
+    text-align: justify;
+    line-height: 15px;
+    margin-top: 7px;
+}
+
+table tbody td.azul{
+    background-color:#15A6E3;
+    color: white;
+    text-shadow: 0px 1px 1px #222;
+    border-left:2px solid #1291C6;
+    border-right:2px solid #1291C6;
+    border-color:#1291C6;
+}
+
+table tbody td.azul:last{
+    border-bottom:2px solid #1291C6;
+}
+
+table tbody td h6{
+    text-align: left;
+    font-size: small;
+    font-weight:600;
+}

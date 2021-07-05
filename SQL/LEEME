@@ -1,0 +1,4 @@
+// Una vez cargada los sql declarapat_oauth y oauth_clients correr el 
+// siguiente comando para crear el cliente
+// 
+php artisan passport:client --personal
