@@ -9,80 +9,13 @@ use Illuminate\Support\Str;
 | CPANEL SETTINGS
 |--------------------------------------------------------------------------
 */
-use App\Models\CpanelApi;
 
-define("GOBMX",".declarapat.gob.mx");
-
-define("CP_PREF","declarap_");
-
-define("DB_USER",CP_PREF."user");
-
-define("DOMINIO_PRIMARIO","declarapat.app");
-
-$carpeta = "local";
 /*
 |--------------------------------------------------------------------------
 | DETERMINO CARPETA
 |--------------------------------------------------------------------------
 */
 
-/*OBTENGO DOMINIO*/
-if(isset($_SERVER['HTTP_HOST']) === TRUE) // if sirve para un host, else para shell
-{
-  $host_actual = $_SERVER['HTTP_HOST'];
-
-  $averiguar_www   = substr($host_actual,0,4); //star // www.
-
-  if($averiguar_www == 'www.')
-  {
-    $array_sin_www = explode('www.',$host_actual);
-    $host_sin_www = $array_sin_www['1'];
-  }
-  else
-  {
-    $host_sin_www = $host_actual; //startup.ayuntamientodigital.gob.mx
-  }
-}
-else
-{
-  $host_sin_www = "declarapat.local";
-}
-/*TERMINO DE OBTENER DOMINIO*/
-
-
-/*OBTENGO SUBDOMINIO*/
-$array_host_sin_www = explode('.',$host_sin_www,3);
-
-if(count($array_host_sin_www) == 3)
-{
-  if($array_host_sin_www[2] != "local")
-  {
-    $cPanel = new CpanelApi();
-
-    $dominios = $cPanel->uapi->DomainInfo->list_domains();
-    $subdominios = $dominios->data->sub_domains;
-
-    if(in_array($array_host_sin_www['0'].GOBMX,$subdominios))
-    {
-      $carpetas_prohibidas = array("autodiscover","cpanel","mail");
-
-      if(!in_array($array_host_sin_www['0'],$carpetas_prohibidas))
-      {
-        $carpeta = $array_host_sin_www['0'];
-
-        $dpt = $cPanel->uapi->Mysql->create_database(['name' => CP_PREF.$carpeta]);
-
-        if($dpt->status == 1)
-        {
-          $pv = $cPanel->uapi->Mysql->set_privileges_on_database(['user' => DB_USER, 'database' => CP_PREF.$carpeta, 'privileges' => 'ALL']);
-        }
-      }
-    }
-  }//if($array_host_sin_www[3] == "local")
-}// count($array_host_sin_www) == 3
-
-
-define("CARPETA",$carpeta);
 
 
 
@@ -126,8 +59,8 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => 'declarapat_'.CARPETA,
-            'username' => 'declarapat_user',
+            'database' => 'aguablancaedu_leysa',
+            'username' => 'aguablanca_user',
             'password' => 'O2(M8NED-E10',
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',

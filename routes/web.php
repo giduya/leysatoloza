@@ -24,14 +24,7 @@ Route::get('/', function () {
 
   Instalar::bd();
 
-  if(CARPETA == "local")
-  {
-    return view('landing');
-  }
-  else
-  {
     return view('auth.login_declarante');
-  }
 });
 
 Auth::routes(['register' => false]);
@@ -47,14 +40,3 @@ Route::match(['get','post'], '/declaracion/{declaracion_id}/{formato_slug?}', [A
 Route::match(['get','post'], '/declaracion/{declaracion_id}/{formato_slug}/{operacion}/{opcion?}', [App\Http\Controllers\DeclaracionController::class, 'subformato']);
 
 Route::get('/catalogo/{catalogo}/{a?}/{b?}/{c?}', [App\Http\Controllers\DeclaracionController::class, 'catalogo']);
-
-// public routes
-Route::group(['middleware' => ['cors', 'json.response']], function () {
-    Route::post('/v2/login', 'App\Http\Controllers\DeclaracionApiController@login')->name('login.api');
-
-    //
-    Route::middleware('auth:api')->group(function () {
-        Route::get('/v2/declaraciones', 'App\Http\Controllers\DeclaracionApiController@index');
-        Route::post('/v2/logout', 'App\Http\Controllers\DeclaracionApiController@logout')->name('logout.api');
-    });
-});
